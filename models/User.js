@@ -52,6 +52,18 @@ userSchema.pre('save', function( next ){ //mongoose에서 가져온 user model�
     }
 }) 
 
+userSchema.methods.comparePassword = function(plainPassword, cb){
+
+    //plainPassword : 실제 비번 / cb : DB에 있는 암호화된 비번 $2b$10$VnVSUfw25J7L40EyZMItqusqn91CdYYSkP1QhdsZkRboUi.Gul/7S
+    //이 두개가 같은지 체크해야함 
+    //실제비번을 암호화해서 암호화된 비번과 비교하자.
+
+    bcrypt.compare(plainPassword, this.password, function(err, isMatch){
+        if(err) return cb(err),
+        cb(null, isMatch)
+    })
+}
+
 const User = mongoose.model('User', userSchema) //Schema를 Model로 감싸주기
 
 module.exports = {User} //User Model을 다른 파일에서도 사용가능하게 함
