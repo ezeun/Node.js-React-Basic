@@ -36,7 +36,7 @@ const userSchema = mongoose.Schema({
 userSchema.pre('save', function( next ){ //mongoose에서 가져온 user model에 user정보를 저장(index.js의 user.save)하기 전에 function을 수행함
     var user = this;
     
-    if(user.isModified('password')){
+    if(user.isModified('password')){ //비밀번호를 바꿀 때
         //비밀번호를 암호화 시킨다. (Bcrypt이용)
         bcrypt.genSalt(saltRounds, function(err, salt) { //salt를 이용해서 비밀번호 암호화
             if(err) return next(err)
@@ -47,6 +47,8 @@ userSchema.pre('save', function( next ){ //mongoose에서 가져온 user model�
                 next()          
             })
         })
+    } else{ //비밀번호말고 다른걸 바꿀 때
+        next()
     }
 }) 
 
