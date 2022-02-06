@@ -1,6 +1,5 @@
 const express = require('express') //다운받은 express모듈을 가져옴
 const app = express() //함수를 이용해서 새로운 express앱을 만듦
-const port = 7000 //아무숫자 해도됨. 백엔드 서버
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const config = require('./config/key');
@@ -22,6 +21,9 @@ app.get('/', (req, res) => { //루트 디렉토리에 오면
   res.send('Hello World! ^.^') //헬로월드를 출력하게 함
 })
 
+app.get('/api/hello', (req, res)=>{
+  res.send("axios 테스트")
+})
 
 app.post('/api/users/register', (req,res) => {
     //회원 가입 할때 필요한 정보들을 client에서 가져오면
@@ -98,6 +100,9 @@ app.get('/api/users/logout', auth, (req, res)=> {
     })
 })
 
+
+
+const port = 7000 //아무숫자 해도됨. 백엔드 서버
 
 app.listen(port, () => { //앱이 port에서 listen하면 
   console.log(`Example app listening on port ${port}!`) //콘솔이 출력됨 
