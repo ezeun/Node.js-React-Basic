@@ -28,9 +28,9 @@ function LoginPage(props) {
       }
 
       dispatch(loginUser(body))
-          .then(response => { //로그인 성공하면 처음 페이지로 이동
+          .then(response => { 
               if(response.payload.loginSuccess){
-                navigate(-1);
+                navigate('/'); //로그인 성공시 처음 페이지로 이동
               }else{
                 alert('Error')
               }
@@ -51,7 +51,7 @@ function LoginPage(props) {
             <label>Password</label> 
             <input type="password" value={Password} onChange={onPasswordHandler} />
             <br />
-            <button>
+            <button type="submit">
               Login
             </button>
         </form>
